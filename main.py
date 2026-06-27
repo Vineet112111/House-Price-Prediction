@@ -2,6 +2,8 @@ import pickle
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template, request, jsonify
+import os
+
 
 app = Flask(__name__)
 
@@ -37,6 +39,10 @@ def predict():
 
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 400
+    
+
+
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
