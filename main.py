@@ -8,15 +8,15 @@ import os
 app = Flask(__name__)
 
 # Load CSV and model once at startup
-data  = pd.read_csv('Cleaned_Data.csv')
+data = pd.read_csv('data/Cleaned_Data.csv')
 
-with open('RidgeModel.pkle', 'rb') as f:
+with open('models/RidgeModel.pkle', 'rb') as f:
     model = pickle.load(f)
 
 @app.route('/')
 def index():
     locations = sorted(data['location'].unique())
-    return render_template('index.html', locations=locations)
+    return render_template('templates/index.html', locations=locations)
 
 @app.route('/predict', methods=['POST'])
 def predict():
