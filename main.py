@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, jsonify
 import os
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 # Load CSV and model once at startup
 data = pd.read_csv('data/Cleaned_Data.csv')
@@ -16,7 +16,7 @@ with open('models/RidgeModel.pkle', 'rb') as f:
 @app.route('/')
 def index():
     locations = sorted(data['location'].unique())
-    return render_template('templates/index.html', locations=locations)
+    return render_template('index.html', locations=locations)
 
 @app.route('/predict', methods=['POST'])
 def predict():
